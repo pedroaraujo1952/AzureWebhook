@@ -1,10 +1,14 @@
 {
-  "name": "azureWebhook",
+  "name": "azure-webhook",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev:server": "ts-node-dev ./src/server.ts"
+    "dev:server": "ts-node-dev ./src/server.ts",
+    "start": "node -r dotenv/config src/index.js",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc",
+    "watch": "tsc -p tsconfig.json -w"
   },
   "dependencies": {
     "discord.js": "^12.5.3",
