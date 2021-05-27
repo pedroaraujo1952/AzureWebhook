@@ -3,7 +3,7 @@ import Discord from 'discord.js';
 
 import discordConfig from './config/discord';
 
-const PORT = process.env.port || 3333;
+const PORT = process.env.SERVER_PORT || 3333;
 
 const app = express();
 
