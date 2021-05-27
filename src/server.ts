@@ -9,25 +9,20 @@ const app = express();
 
 app.use(express.json());
 
-app.post('/', (request, response) => {
+app.get('/', (request, response) => response.send('Its working'));
+
+app.post('/build', (request, response) => {
   const webhookClient = new Discord.WebhookClient(
     discordConfig.webhookId,
     discordConfig.webhookToken,
   );
 
-  const { detailedMessage, resource } = request.body;
+  const { message, resource } = request.body;
 
-  const { url, lastChangedBy, status } = resource;
-
-  const message = detailedMessage.text;
+  const { url, status } = resource;
 
   const embed = {
-    author: {
-      name: lastChangedBy.displayName,
-      url: lastChangedBy.url,
-      icon_url: lastChangedBy.imageUrl,
-    },
-    description: message,
+    description: message.markdown,
     color: status === 'succeeded' ? 1879160 : 16711680,
   };
 
@@ -39,7 +34,7 @@ app.post('/', (request, response) => {
     embeds: [embed],
   });
 
-  return response.send();
+  return response.status(204).send();
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
