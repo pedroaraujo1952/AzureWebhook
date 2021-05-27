@@ -37,4 +37,4 @@ app.post('/build', (request, response) => {
   return response.status(204).send();
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
