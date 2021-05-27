@@ -1,8 +1,11 @@
 {
   "name": "azure-webhook",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev:server": "ts-node-dev ./src/server.ts",
     "start": "node dist/server.js",
