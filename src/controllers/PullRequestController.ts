@@ -61,4 +61,26 @@ export class PullRequestController {
 
     return response.send();
   }
+
+  public merge(request: Request, response: Response) {
+    const webhookClient = new WebhookClient(
+      discordConfig.webhookId,
+      discordConfig.webhookToken,
+    );
+
+    const { detailedMessage: message, resource } = request.body;
+
+    const embed = new MessageEmbed()
+      .setDescription(message.markdown)
+      .addField('Pull Request', resource.title)
+      .setColor(resource.status === 'completed' ? 1879160 : 16711680);
+
+    webhookClient.send({
+      username: discordConfig.webhookUsername,
+      avatarURL: discordConfig.webhookAvatarURL,
+      embeds: [embed],
+    });
+
+    return response.send();
+  }
 }
