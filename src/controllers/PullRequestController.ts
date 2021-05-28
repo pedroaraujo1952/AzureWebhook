@@ -39,14 +39,16 @@ export class PullRequestController {
     );
 
     const { message, resource } = request.body;
-    const { title } = resource;
+    const { title, createdBy } = resource;
 
     const reviewers: any[] = resource.reviewers;
+
+    const responseMessage = `${createdBy.displayName} created [pull request](${resource._links.web.href}) (${title}) in [${resource.repository.project.name}](${resource.repository.project.url})`;
 
     const embed = new MessageEmbed()
       .setTitle(`Uma nova Pull Request foi criada`)
       .setURL(resource._links.web.href)
-      .setDescription(message.markdown + `\nPull Request Name: ${title}`)
+      .setDescription(responseMessage)
       .addField(
         'Reviewers',
         reviewers.map((content, index) => content.displayName),
