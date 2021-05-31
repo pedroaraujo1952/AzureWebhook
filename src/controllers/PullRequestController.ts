@@ -43,7 +43,7 @@ export class PullRequestController {
 
     const reviewers: any[] = resource.reviewers;
 
-    const responseMessage = `${createdBy.displayName} created [pull request](${resource._links.web.href}) (${title}) in [${resource.repository.project.name}](${resource.repository.project.url})`;
+    const responseMessage = `${createdBy.displayName} created [pull request](${resource._links.web.href}) (${title}) in [${resource.repository.name}](${resource.repository.url})`;
 
     console.log(detailedMessage);
 
