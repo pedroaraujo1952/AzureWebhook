@@ -38,12 +38,14 @@ export class PullRequestController {
       discordConfig.webhookToken,
     );
 
-    const { message, resource } = request.body;
+    const { detailedMessage, resource } = request.body;
     const { title, createdBy } = resource;
 
     const reviewers: any[] = resource.reviewers;
 
     const responseMessage = `${createdBy.displayName} created [pull request](${resource._links.web.href}) (${title}) in [${resource.repository.project.name}](${resource.repository.project.url})`;
+
+    console.log(detailedMessage);
 
     const embed = new MessageEmbed()
       .setTitle(`Uma nova Pull Request foi criada`)
