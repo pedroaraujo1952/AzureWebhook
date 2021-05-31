@@ -17,7 +17,7 @@ export class PullRequestController {
 
     const embed = new MessageEmbed()
       .setAuthor(author.displayName, author.imageUrl, author.url)
-      .setTitle(`Novo comentário na PR ${pullRequest.title}`)
+      .setTitle(`Novo comentário na PR: ${pullRequest.title}`)
       .setURL(comment._links.self.href)
       .setDescription(message.markdown)
       .addField('Comentário: ', comment.content)
