@@ -72,11 +72,12 @@ export class PullRequestController {
       discordConfig.webhookToken,
     );
 
-    const { detailedMessage: message, resource } = request.body;
+    const { message, resource } = request.body;
 
-    console.table(resource);
+    console.log(JSON.stringify(resource));
 
     const embed = new MessageEmbed()
+      .setTitle('New Merge Attempt')
       .setDescription(message.markdown)
       .addField('Pull Request', resource.title)
       .setColor(resource.mergeStatus === 'succeeded' ? 1879160 : 16711680);

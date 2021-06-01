@@ -7,5 +7,5 @@ export default {
   webhookToken: process.env.DISCORD_WEBHOOK_TOKEN || '',
   webhookUsername: 'Azure Bot',
   webhookAvatarURL:
-    'https://p2zk82o7hr3yb6ge7gzxx4ki-wpengine.netdna-ssl.com/wp-content/uploads/Azure-DevOps-3.png',
+    'https://lh3.googleusercontent.com/proxy/bhj17pNLKTQ95y8kM4waSIflevf9lfQ0EaNw_w9wO__hS9x_QpruI964ZB8mlIfd53LaKIL5nY5hG3HbVUrGHQdkwb9p_QmAJ96M1IMMy4Iz0Svgjq_6IBu8tfncomd_Pmx-',
 };
