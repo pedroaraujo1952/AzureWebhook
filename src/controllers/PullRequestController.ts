@@ -74,8 +74,6 @@ export class PullRequestController {
 
     const { message, resource } = request.body;
 
-    console.log(JSON.stringify(resource));
-
     const embed = new MessageEmbed()
       .setTitle('New Merge Attempt')
       .setDescription(message.markdown)
