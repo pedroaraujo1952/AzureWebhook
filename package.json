@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
+  "author": {
+    "name": "Pedro Henrique Souza Araujo",
+    "email": "pedroaraujo@pecege.com",
+    "url": "https://github.com/Ph-FMM"
+  },
   "engines": {
     "node": "14.x"
   },
