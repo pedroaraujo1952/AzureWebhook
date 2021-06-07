@@ -1,26 +1,23 @@
-import { MessageEmbed, WebhookClient } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import { Request, Response } from 'express';
 
-import discordConfig from '../config/discord';
+import { DiscordWebhookClient } from '../providers/WebhookClient/implementations/DiscordWebhookClient';
+import { SendBuildStatusService } from '../services/Build/SendBuildStatusService';
+import { AzureBuild } from '../types/Azure/BuildInterfaces/IBuild';
 
 export class BuildController {
-  public index(request: Request, response: Response) {
-    const webhookClient = new WebhookClient(
-      discordConfig.webhookId,
-      discordConfig.webhookToken,
+  public async index(request: Request, response: Response): Promise<Response> {
+    const webhookClient = new DiscordWebhookClient();
+    const messageEmbed = new MessageEmbed();
+
+    const { message, resource } = request.body as AzureBuild;
+
+    const sendBuildStatus = new SendBuildStatusService(
+      webhookClient,
+      messageEmbed,
     );
 
-    const { message, resource } = request.body;
-
-    const embed = new MessageEmbed()
-      .setDescription(message.markdown)
-      .setColor(resource.status === 'succeeded' ? 1879160 : 16711680);
-
-    webhookClient.send({
-      username: discordConfig.webhookUsername,
-      avatarURL: discordConfig.webhookAvatarURL,
-      embeds: [embed],
-    });
+    await sendBuildStatus.execute({ message, resource });
 
     return response.status(204).send();
   }
