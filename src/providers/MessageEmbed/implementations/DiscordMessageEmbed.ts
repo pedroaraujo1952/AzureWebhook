@@ -15,4 +15,16 @@ export class DiscordMessageEmbed implements IMessageEmbed {
   setColor(color: string | number): IMessageEmbed {
     return this.messageEmbed.setColor(color);
   }
+
+  addField(title: string, field: string[]): IMessageEmbed {
+    return this.messageEmbed.addField(title, field);
+  }
+
+  setTitle(title: string): IMessageEmbed {
+    return this.messageEmbed.setTitle(title);
+  }
+
+  setURL(url: string): IMessageEmbed {
+    return this.messageEmbed.setURL(url);
+  }
 }
