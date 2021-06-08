@@ -1,8 +1,8 @@
-import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
-import { IWebhookClient } from '../../providers/WebhookClient/models/IWebhookClient';
+import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
+import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
-import { AzureBuildResource } from '../../types/Azure/BuildInterfaces/IBuild';
-import { Message } from '../../types/Azure/IAzure';
+import { AzureBuildResource } from '../types/Azure/BuildInterfaces/IBuild';
+import { Message } from '../types/Azure/IAzure';
 
 interface IRequest {
   message: Message;

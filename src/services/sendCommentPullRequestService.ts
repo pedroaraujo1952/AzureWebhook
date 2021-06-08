@@ -1,8 +1,8 @@
-import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
-import { IWebhookClient } from '../../providers/WebhookClient/models/IWebhookClient';
+import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
+import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
-import { AzurePullRequestCommentResource } from '../../types/Azure/PullRequestInterfaces/IPullRequest';
-import { Message } from '../../types/Azure/IAzure';
+import { AzurePullRequestCommentResource } from '../types/Azure/PullRequestInterfaces/IPullRequest';
+import { Message } from '../types/Azure/IAzure';
 
 interface IRequest {
   message: Message;
