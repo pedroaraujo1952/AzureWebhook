@@ -2,6 +2,5 @@ node_modules
 dist
 .env
 **.env
-*.lock
 coverage
 yarn-error.log
