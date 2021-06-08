@@ -3,4 +3,5 @@ dist
 .env
 **.env
 coverage
-yarn-error.log
+*.log
+logs

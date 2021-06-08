@@ -1,4 +1,5 @@
 import express from 'express';
+import { logger } from './config/logger';
 
 import { router } from './routes';
 
@@ -8,8 +9,8 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', (request, response) => response.send('Its working'));
-
 app.use(router);
 
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  logger.log('[INFO]', `🚀 Server running on port ${PORT}`),
+);
