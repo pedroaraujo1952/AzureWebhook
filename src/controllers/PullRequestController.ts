@@ -4,33 +4,28 @@ import { Request, Response } from 'express';
 import discordConfig from '../config/discord';
 import { DiscordWebhookClient } from '../providers/WebhookClient/implementations/DiscordWebhookClient';
 import { SendCreatePullRequestService } from '../services/PullRequest/sendCreatePullRequestService';
-import { AzurePullRequest } from '../types/Azure/PullRequestInterfaces/IPullRequest';
+import { SendCommentPullRequestService } from '../services/PullRequest/sendCommentPullRequestService';
+import {
+  AzurePullRequestComment,
+  AzurePullRequestCreate,
+} from '../types/Azure/PullRequestInterfaces/IPullRequest';
 
 export class PullRequestController {
-  public comment(request: Request, response: Response) {
-    const webhookClient = new WebhookClient(
-      discordConfig.webhookId,
-      discordConfig.webhookToken,
+  public async comment(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const webhookClient = new DiscordWebhookClient();
+    const messageEmbed = new MessageEmbed();
+
+    const { message, resource } = request.body as AzurePullRequestComment;
+
+    const sendCommentPullRequest = new SendCommentPullRequestService(
+      webhookClient,
+      messageEmbed,
     );
 
-    const { message, resource } = request.body;
-    const { comment, pullRequest } = resource;
-
-    const { author } = comment;
-
-    const embed = new MessageEmbed()
-      .setAuthor(author.displayName, author.imageUrl, author.url)
-      .setTitle(`Novo comentário na PR: ${pullRequest.title}`)
-      .setURL(comment._links.self.href)
-      .setDescription(message.markdown)
-      .addField('Comentário: ', comment.content)
-      .setColor(0x3d9df2);
-
-    webhookClient.send({
-      username: discordConfig.webhookUsername,
-      avatarURL: discordConfig.webhookAvatarURL,
-      embeds: [embed],
-    });
+    await sendCommentPullRequest.execute({ message, resource });
 
     return response.send();
   }
@@ -39,7 +34,7 @@ export class PullRequestController {
     const webhookClient = new DiscordWebhookClient();
     const messageEmbed = new MessageEmbed();
 
-    const { resource } = request.body as AzurePullRequest;
+    const { resource } = request.body as AzurePullRequestCreate;
 
     const sendCreatePullRequest = new SendCreatePullRequestService(
       webhookClient,
@@ -51,7 +46,7 @@ export class PullRequestController {
     return response.status(204).send();
   }
 
-  public merge(request: Request, response: Response) {
+  public async merge(request: Request, response: Response): Promise<Response> {
     const webhookClient = new WebhookClient(
       discordConfig.webhookId,
       discordConfig.webhookToken,

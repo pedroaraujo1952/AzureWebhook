@@ -21,7 +21,7 @@ describe('SendCreatePullRequestController', () => {
     );
   });
 
-  it('should send create pull request message', async () => {
+  it('should be able to send create pull request message', async () => {
     const resource = {
       title: 'some-title',
       createdBy: {
@@ -48,9 +48,11 @@ describe('SendCreatePullRequestController', () => {
     } as AzurePullRequestCreateResource;
 
     const setTitleSpy = jest.spyOn(fakeMessageEmbed, 'setTitle');
+    const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
 
     await sendCreatePullRequest.execute(resource);
 
     expect(setTitleSpy).toHaveBeenCalled();
+    expect(webhookSend).toHaveBeenCalled();
   });
 });

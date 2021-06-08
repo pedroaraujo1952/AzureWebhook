@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Message } from 'discord.js';
+
+import { Message } from '../IAzure';
 
 interface Links {
   web: {
@@ -18,6 +19,31 @@ interface Repository {
   url: string;
 }
 
+interface Comment {
+  id: number;
+  author: User;
+  content: string;
+  _links: {
+    self: {
+      href: string;
+    };
+  };
+}
+
+interface PullRequest {
+  repository: Repository;
+  createdBy: User;
+  title: string;
+  description: string;
+  mergeStatus: 'succeeded' | 'failed';
+  reviewers: User[];
+}
+
+export interface AzurePullRequestCommentResource {
+  comment: Comment;
+  pullRequest: PullRequest;
+}
+
 export interface AzurePullRequestCreateResource {
   title: string;
   description: string;
@@ -29,7 +55,16 @@ export interface AzurePullRequestCreateResource {
   createdBy: User;
 }
 
-export interface AzurePullRequest {
+export interface AzurePullRequestComment {
+  id: string;
+  eventType: string;
+  message: Message;
+  detailedMessage: Message;
+  resource: AzurePullRequestCommentResource;
+  createdDate: Date;
+}
+
+export interface AzurePullRequestCreate {
   id: string;
   eventType: string;
   message: Message;

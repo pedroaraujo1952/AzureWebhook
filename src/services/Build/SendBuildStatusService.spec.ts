@@ -35,10 +35,12 @@ describe('SendBuildStatusService', () => {
     };
 
     const setDescriptionSpy = jest.spyOn(fakeMessageEmbed, 'setDescription');
+    const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
 
     await sendBuildStatus.execute({ message, resource });
 
     expect(setDescriptionSpy).toHaveBeenCalledWith(message.markdown);
+    expect(webhookSend).toHaveBeenCalled();
   });
 
   it('should send failed build message', async () => {
@@ -54,9 +56,11 @@ describe('SendBuildStatusService', () => {
     };
 
     const setDescriptionSpy = jest.spyOn(fakeMessageEmbed, 'setDescription');
+    const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
 
     await sendBuildStatus.execute({ message, resource });
 
     expect(setDescriptionSpy).toHaveBeenCalledWith(message.markdown);
+    expect(webhookSend).toHaveBeenCalled();
   });
 });

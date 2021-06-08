@@ -16,7 +16,7 @@ export class DiscordMessageEmbed implements IMessageEmbed {
     return this.messageEmbed.setColor(color);
   }
 
-  addField(title: string, field: string[]): IMessageEmbed {
+  addField(title: string, field: string | string[]): IMessageEmbed {
     return this.messageEmbed.addField(title, field);
   }
 
@@ -26,5 +26,13 @@ export class DiscordMessageEmbed implements IMessageEmbed {
 
   setURL(url: string): IMessageEmbed {
     return this.messageEmbed.setURL(url);
+  }
+
+  setAuthor(
+    name: string,
+    iconUrl?: string | undefined,
+    url?: string | undefined,
+  ): IMessageEmbed {
+    return this.messageEmbed.setAuthor(name, iconUrl, url);
   }
 }
