@@ -12,14 +12,14 @@ const logger = createLogger({
   levels: customLevel,
   transports: [
     new transports.File({
-      level: '[INFO]',
       filename: 'logs/info.log',
       format: format.combine(format.timestamp(), format.simple()),
+      level: '[INFO]',
     }),
     new transports.File({
-      level: '[ERROR]',
       filename: 'logs/error.log',
       format: format.combine(format.timestamp(), format.simple()),
+      level: '[ERROR]',
     }),
   ],
 });

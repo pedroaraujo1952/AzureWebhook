@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { logger } from '../config/logger';
 
-export function loggingHandler(
+export const loggingHandler = (
   request: Request,
   response: Response,
   next: NextFunction,
-): unknown {
+): unknown => {
   const { originalUrl, method } = request;
 
   const logMessage = `[${method}] ${originalUrl}`;
@@ -13,4 +13,4 @@ export function loggingHandler(
   logger.log('[INFO]', logMessage);
 
   return next();
-}
+};
