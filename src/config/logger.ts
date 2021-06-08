@@ -1,4 +1,7 @@
 import { createLogger, transports, format } from 'winston';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const customLevel = {
   '[ERROR]': 0,
