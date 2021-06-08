@@ -39,6 +39,17 @@ interface PullRequest {
   reviewers: User[];
 }
 
+export interface AzurePullRequestMergeResource {
+  repository: Repository;
+  createdBy: User;
+  creationDate: Date;
+  title: string;
+  description: string;
+  mergeStatus: 'succeeded' | 'failed';
+  reviewers: User[];
+  url: string;
+}
+
 export interface AzurePullRequestCommentResource {
   comment: Comment;
   pullRequest: PullRequest;
@@ -55,20 +66,14 @@ export interface AzurePullRequestCreateResource {
   createdBy: User;
 }
 
-export interface AzurePullRequestComment {
+export interface AzurePullRequest {
   id: string;
   eventType: string;
   message: Message;
   detailedMessage: Message;
-  resource: AzurePullRequestCommentResource;
-  createdDate: Date;
-}
-
-export interface AzurePullRequestCreate {
-  id: string;
-  eventType: string;
-  message: Message;
-  detailedMessage: Message;
-  resource: AzurePullRequestCreateResource;
+  resource:
+    | AzurePullRequestCreateResource
+    | AzurePullRequestCommentResource
+    | AzurePullRequestMergeResource;
   createdDate: Date;
 }

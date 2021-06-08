@@ -4,3 +4,4 @@ dist
 **.env
 *.lock
 coverage
+yarn-error.log

@@ -1,9 +1,11 @@
 import { DiscordMessageEmbed } from '../../providers/MessageEmbed/implementations/DiscordMessageEmbed';
-import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
 import { FakeWebhookClient } from '../../providers/WebhookClient/fakes/FakeWebhookClient';
 import { IWebhookClient } from '../../providers/WebhookClient/models/IWebhookClient';
-import { AzurePullRequestCreateResource } from '../../types/Azure/PullRequestInterfaces/IPullRequest';
+import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
+
 import { SendCreatePullRequestService } from './sendCreatePullRequestService';
+
+import { AzurePullRequestCreateResource } from '../../types/Azure/PullRequestInterfaces/IPullRequest';
 
 let fakeWebhookClient: IWebhookClient;
 let fakeMessageEmbed: IMessageEmbed;

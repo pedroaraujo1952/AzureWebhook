@@ -1,13 +1,17 @@
-import { MessageEmbed, WebhookClient } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import { Request, Response } from 'express';
 
-import discordConfig from '../config/discord';
 import { DiscordWebhookClient } from '../providers/WebhookClient/implementations/DiscordWebhookClient';
+
 import { SendCreatePullRequestService } from '../services/PullRequest/sendCreatePullRequestService';
 import { SendCommentPullRequestService } from '../services/PullRequest/sendCommentPullRequestService';
+import { SendMergePullRequestService } from '../services/PullRequest/sendMergePullRequestService';
+
 import {
-  AzurePullRequestComment,
-  AzurePullRequestCreate,
+  AzurePullRequest,
+  AzurePullRequestCommentResource,
+  AzurePullRequestCreateResource,
+  AzurePullRequestMergeResource,
 } from '../types/Azure/PullRequestInterfaces/IPullRequest';
 
 export class PullRequestController {
@@ -18,14 +22,17 @@ export class PullRequestController {
     const webhookClient = new DiscordWebhookClient();
     const messageEmbed = new MessageEmbed();
 
-    const { message, resource } = request.body as AzurePullRequestComment;
+    const { message, resource } = request.body as AzurePullRequest;
 
     const sendCommentPullRequest = new SendCommentPullRequestService(
       webhookClient,
       messageEmbed,
     );
 
-    await sendCommentPullRequest.execute({ message, resource });
+    await sendCommentPullRequest.execute({
+      message,
+      resource: resource as AzurePullRequestCommentResource,
+    });
 
     return response.send();
   }
@@ -34,38 +41,36 @@ export class PullRequestController {
     const webhookClient = new DiscordWebhookClient();
     const messageEmbed = new MessageEmbed();
 
-    const { resource } = request.body as AzurePullRequestCreate;
+    const { resource } = request.body as AzurePullRequest;
 
     const sendCreatePullRequest = new SendCreatePullRequestService(
       webhookClient,
       messageEmbed,
     );
 
-    await sendCreatePullRequest.execute(resource);
+    await sendCreatePullRequest.execute(
+      resource as AzurePullRequestCreateResource,
+    );
 
     return response.status(204).send();
   }
 
   public async merge(request: Request, response: Response): Promise<Response> {
-    const webhookClient = new WebhookClient(
-      discordConfig.webhookId,
-      discordConfig.webhookToken,
+    const webhookClient = new DiscordWebhookClient();
+    const messageEmbed = new MessageEmbed();
+
+    const { message, resource } = request.body as AzurePullRequest;
+
+    const sendMergePullRequest = new SendMergePullRequestService(
+      webhookClient,
+      messageEmbed,
     );
 
-    const { message, resource } = request.body;
-
-    const embed = new MessageEmbed()
-      .setTitle('New Merge Attempt')
-      .setDescription(message.markdown)
-      .addField('Pull Request', resource.title)
-      .setColor(resource.mergeStatus === 'succeeded' ? 1879160 : 16711680);
-
-    webhookClient.send({
-      username: discordConfig.webhookUsername,
-      avatarURL: discordConfig.webhookAvatarURL,
-      embeds: [embed],
+    await sendMergePullRequest.execute({
+      message,
+      resource: resource as AzurePullRequestMergeResource,
     });
 
-    return response.send();
+    return response.status(204).send();
   }
 }

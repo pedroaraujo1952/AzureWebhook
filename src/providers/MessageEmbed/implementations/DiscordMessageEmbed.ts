@@ -1,4 +1,5 @@
 import { MessageEmbed } from 'discord.js';
+
 import { IMessageEmbed } from '../models/IMessageEmbed';
 
 export class DiscordMessageEmbed implements IMessageEmbed {

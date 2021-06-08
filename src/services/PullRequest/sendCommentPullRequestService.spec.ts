@@ -1,12 +1,14 @@
 import { DiscordMessageEmbed } from '../../providers/MessageEmbed/implementations/DiscordMessageEmbed';
-import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
 import { FakeWebhookClient } from '../../providers/WebhookClient/fakes/FakeWebhookClient';
 import { IWebhookClient } from '../../providers/WebhookClient/models/IWebhookClient';
+import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
+
+import { SendCommentPullRequestService } from './sendCommentPullRequestService';
+
 import {
-  AzurePullRequestComment,
+  AzurePullRequest,
   AzurePullRequestCommentResource,
 } from '../../types/Azure/PullRequestInterfaces/IPullRequest';
-import { SendCommentPullRequestService } from './sendCommentPullRequestService';
 
 let fakeWebhookClient: IWebhookClient;
 let fakeMessageEmbed: IMessageEmbed;
@@ -49,7 +51,7 @@ describe('SendCommentPullRequestController', () => {
         markdown: 'some-message',
       },
       resource,
-    } as AzurePullRequestComment;
+    } as AzurePullRequest;
 
     const setAuthor = jest.spyOn(fakeMessageEmbed, 'setAuthor');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');

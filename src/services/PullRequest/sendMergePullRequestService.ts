@@ -1,33 +1,28 @@
 import { IMessageEmbed } from '../../providers/MessageEmbed/models/IMessageEmbed';
 import { IWebhookClient } from '../../providers/WebhookClient/models/IWebhookClient';
 
-import { AzurePullRequestCommentResource } from '../../types/Azure/PullRequestInterfaces/IPullRequest';
+import { AzurePullRequestMergeResource } from '../../types/Azure/PullRequestInterfaces/IPullRequest';
 import { Message } from '../../types/Azure/IAzure';
 
 interface IRequest {
   message: Message;
-  resource: AzurePullRequestCommentResource;
+  resource: AzurePullRequestMergeResource;
 }
 
-export class SendCommentPullRequestService {
+export class SendMergePullRequestService {
   constructor(
     private webhookClient: IWebhookClient,
     private messageEmbed: IMessageEmbed,
   ) {}
 
   public async execute({ message, resource }: IRequest): Promise<void> {
-    const { comment, pullRequest } = resource;
-
-    const { title } = pullRequest;
-    const { author, _links, content } = comment;
+    const { title, mergeStatus } = resource;
 
     const embed = this.messageEmbed
-      .setAuthor(author.displayName, author.imageUrl, author.url)
-      .setTitle(`Novo comentário na PR: ${title}`)
-      .setURL(_links.self.href)
+      .setTitle('New Merge Attempt')
       .setDescription(message.markdown)
-      .addField('Comentário: ', content)
-      .setColor(0x3d9df2);
+      .addField('Pull Request', title)
+      .setColor(mergeStatus === 'succeeded' ? 1879160 : 16711680);
 
     this.webhookClient.send([embed]);
   }
