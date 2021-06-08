@@ -3,9 +3,9 @@ import { Request, Response } from 'express';
 
 import { DiscordWebhookClient } from '../providers/WebhookClient/implementations/DiscordWebhookClient';
 
-import { SendCreatePullRequestService } from '../services/PullRequest/sendCreatePullRequestService';
-import { SendCommentPullRequestService } from '../services/PullRequest/sendCommentPullRequestService';
-import { SendMergePullRequestService } from '../services/PullRequest/sendMergePullRequestService';
+import { SendCreatePullRequestService } from '../services/sendCreatePullRequestService';
+import { SendCommentPullRequestService } from '../services/sendCommentPullRequestService';
+import { SendMergePullRequestService } from '../services/sendMergePullRequestService';
 
 import {
   AzurePullRequest,
