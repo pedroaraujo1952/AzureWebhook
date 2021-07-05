@@ -6,13 +6,9 @@ import { DiscordWebhookClient } from '../providers/WebhookClient/implementations
 import { SendCreatePullRequestService } from '../services/sendCreatePullRequestService';
 import { SendCommentPullRequestService } from '../services/sendCommentPullRequestService';
 import { SendMergePullRequestService } from '../services/sendMergePullRequestService';
-
-import {
-  AzurePullRequest,
-  AzurePullRequestCommentResource,
-  AzurePullRequestCreateResource,
-  AzurePullRequestMergeResource,
-} from '../types/Azure/PullRequestInterfaces/IPullRequest';
+import { PullRequestCommentedOn } from '../types/Azure/IPullRequestCommentedOn';
+import { PullRequestCreated } from '../types/Azure/IPullRequestCreated';
+import { PullRequestMerge } from '../types/Azure/IPullRequestMerge';
 
 export class PullRequestController {
   public async comment(
@@ -22,7 +18,7 @@ export class PullRequestController {
     const webhookClient = new DiscordWebhookClient();
     const messageEmbed = new MessageEmbed();
 
-    const { message, resource } = request.body as AzurePullRequest;
+    const { message, resource } = request.body as PullRequestCommentedOn;
 
     const sendCommentPullRequest = new SendCommentPullRequestService(
       webhookClient,
@@ -31,7 +27,7 @@ export class PullRequestController {
 
     await sendCommentPullRequest.execute({
       message,
-      resource: resource as AzurePullRequestCommentResource,
+      resource,
     });
 
     return response.send();
@@ -41,16 +37,14 @@ export class PullRequestController {
     const webhookClient = new DiscordWebhookClient();
     const messageEmbed = new MessageEmbed();
 
-    const { resource } = request.body as AzurePullRequest;
+    const { resource } = request.body as PullRequestCreated;
 
     const sendCreatePullRequest = new SendCreatePullRequestService(
       webhookClient,
       messageEmbed,
     );
 
-    await sendCreatePullRequest.execute(
-      resource as AzurePullRequestCreateResource,
-    );
+    await sendCreatePullRequest.execute(resource);
 
     return response.status(204).send();
   }
@@ -59,7 +53,7 @@ export class PullRequestController {
     const webhookClient = new DiscordWebhookClient();
     const messageEmbed = new MessageEmbed();
 
-    const { message, resource } = request.body as AzurePullRequest;
+    const { message, resource } = request.body as PullRequestMerge;
 
     const sendMergePullRequest = new SendMergePullRequestService(
       webhookClient,
@@ -68,7 +62,7 @@ export class PullRequestController {
 
     await sendMergePullRequest.execute({
       message,
-      resource: resource as AzurePullRequestMergeResource,
+      resource,
     });
 
     return response.status(204).send();

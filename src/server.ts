@@ -1,7 +1,11 @@
+import 'reflect-metadata';
+
 import express from 'express';
 import { logger } from './config/logger';
 
 import { router } from './routes';
+
+import './containers';
 
 const PORT = process.env.PORT || 3333;
 

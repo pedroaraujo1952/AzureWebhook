@@ -1,11 +1,18 @@
+import 'reflect-metadata';
+
+import { inject, injectable } from 'tsyringe';
+
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
+import { Resource } from '../types/Azure/IPullRequestCreated';
 
-import { AzurePullRequestCreateResource } from '../types/Azure/PullRequestInterfaces/IPullRequest';
-
+@injectable()
 export class SendCreatePullRequestService {
   constructor(
+    @inject('WebhookClient')
     private webhookClient: IWebhookClient,
+
+    @inject('MessageEmbed')
     private messageEmbed: IMessageEmbed,
   ) {}
 
@@ -15,7 +22,7 @@ export class SendCreatePullRequestService {
     reviewers,
     _links,
     repository,
-  }: AzurePullRequestCreateResource): Promise<void> {
+  }: Resource): Promise<void> {
     const responseMessage = `${createdBy.displayName} created [pull request](${_links.web.href}) (${title}) in [${repository.name}](${repository.url})`;
 
     const embed = this.messageEmbed

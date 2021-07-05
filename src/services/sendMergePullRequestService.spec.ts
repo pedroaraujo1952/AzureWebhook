@@ -4,11 +4,7 @@ import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
 import { SendMergePullRequestService } from './sendMergePullRequestService';
-
-import {
-  AzurePullRequest,
-  AzurePullRequestMergeResource,
-} from '../types/Azure/PullRequestInterfaces/IPullRequest';
+import { PullRequestMerge, Resource } from '../types/Azure/IPullRequestMerge';
 
 let fakeWebhookClient: IWebhookClient;
 let fakeMessageEmbed: IMessageEmbed;
@@ -30,14 +26,14 @@ describe('SendMergePullRequestController', () => {
     const resource = {
       title: 'some-title',
       mergeStatus: 'succeeded',
-    } as AzurePullRequestMergeResource;
+    } as Resource;
 
     const { message } = {
       message: {
         markdown: 'some-message',
       },
       resource,
-    } as AzurePullRequest;
+    } as PullRequestMerge;
 
     const setTitle = jest.spyOn(fakeMessageEmbed, 'setTitle');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
@@ -52,14 +48,14 @@ describe('SendMergePullRequestController', () => {
     const resource = {
       title: 'some-title',
       mergeStatus: 'failed',
-    } as AzurePullRequestMergeResource;
+    } as Resource;
 
     const { message } = {
       message: {
         markdown: 'some-message',
       },
       resource,
-    } as AzurePullRequest;
+    } as PullRequestMerge;
 
     const setTitle = jest.spyOn(fakeMessageEmbed, 'setTitle');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');

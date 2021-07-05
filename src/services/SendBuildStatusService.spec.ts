@@ -4,9 +4,7 @@ import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
 import { SendBuildStatusService } from './SendBuildStatusService';
-
-import { AzureBuildResource } from '../types/Azure/BuildInterfaces/IBuild';
-import { Message } from '../types/Azure/IAzure';
+import { Message, Resource } from '../types/Azure/IBuildCompleted';
 
 let fakeWebhookClient: IWebhookClient;
 let fakeMessageEmbed: IMessageEmbed;
@@ -29,12 +27,12 @@ describe('SendBuildStatusService', () => {
       markdown: 'some-message',
     };
 
-    const resource: AzureBuildResource = {
+    const resource = {
       id: 0,
       buildNumber: 'some-build-number',
       status: 'succeeded',
       url: 'some-url',
-    };
+    } as Resource;
 
     const setDescriptionSpy = jest.spyOn(fakeMessageEmbed, 'setDescription');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
@@ -50,12 +48,12 @@ describe('SendBuildStatusService', () => {
       markdown: 'some-message',
     };
 
-    const resource: AzureBuildResource = {
+    const resource = {
       id: 0,
       buildNumber: 'some-build-number',
       status: 'failed',
       url: 'some-url',
-    };
+    } as Resource;
 
     const setDescriptionSpy = jest.spyOn(fakeMessageEmbed, 'setDescription');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');

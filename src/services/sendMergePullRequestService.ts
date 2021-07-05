@@ -1,17 +1,23 @@
+import 'reflect-metadata';
+
+import { inject, injectable } from 'tsyringe';
+
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
-
-import { AzurePullRequestMergeResource } from '../types/Azure/PullRequestInterfaces/IPullRequest';
-import { Message } from '../types/Azure/IAzure';
+import { Message, Resource } from '../types/Azure/IPullRequestMerge';
 
 interface IRequest {
   message: Message;
-  resource: AzurePullRequestMergeResource;
+  resource: Resource;
 }
 
+@injectable()
 export class SendMergePullRequestService {
   constructor(
+    @inject('WebhookClient')
     private webhookClient: IWebhookClient,
+
+    @inject('MessageEmbed')
     private messageEmbed: IMessageEmbed,
   ) {}
 

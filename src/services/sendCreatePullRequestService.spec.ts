@@ -4,8 +4,7 @@ import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
 import { SendCreatePullRequestService } from './sendCreatePullRequestService';
-
-import { AzurePullRequestCreateResource } from '../types/Azure/PullRequestInterfaces/IPullRequest';
+import { Resource } from '../types/Azure/IPullRequestCreated';
 
 let fakeWebhookClient: IWebhookClient;
 let fakeMessageEmbed: IMessageEmbed;
@@ -47,7 +46,7 @@ describe('SendCreatePullRequestController', () => {
         name: 'some-repository-name',
         url: 'some-repository-url',
       },
-    } as AzurePullRequestCreateResource;
+    } as Resource;
 
     const setTitleSpy = jest.spyOn(fakeMessageEmbed, 'setTitle');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');

@@ -1,22 +1,15 @@
-import { MessageEmbed } from 'discord.js';
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
-import { DiscordWebhookClient } from '../providers/WebhookClient/implementations/DiscordWebhookClient';
 import { SendBuildStatusService } from '../services/SendBuildStatusService';
 
-import { AzureBuild } from '../types/Azure/BuildInterfaces/IBuild';
+import { BuildCompleted } from '../types/Azure/IBuildCompleted';
 
 export class BuildController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const webhookClient = new DiscordWebhookClient();
-    const messageEmbed = new MessageEmbed();
+    const { message, resource } = request.body as BuildCompleted;
 
-    const { message, resource } = request.body as AzureBuild;
-
-    const sendBuildStatus = new SendBuildStatusService(
-      webhookClient,
-      messageEmbed,
-    );
+    const sendBuildStatus = container.resolve(SendBuildStatusService);
 
     await sendBuildStatus.execute({ message, resource });
 

@@ -1,17 +1,22 @@
+import 'reflect-metadata';
+
+import { inject, injectable } from 'tsyringe';
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
-
-import { AzureBuildResource } from '../types/Azure/BuildInterfaces/IBuild';
-import { Message } from '../types/Azure/IAzure';
+import { Message, Resource } from '../types/Azure/IBuildCompleted';
 
 interface IRequest {
   message: Message;
-  resource: AzureBuildResource;
+  resource: Resource;
 }
 
+@injectable()
 export class SendBuildStatusService {
   constructor(
+    @inject('WebhookClient')
     private webhookClient: IWebhookClient,
+
+    @inject('MessageEmbed')
     private messageEmbed: IMessageEmbed,
   ) {}
 
