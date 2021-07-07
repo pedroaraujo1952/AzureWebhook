@@ -11,4 +11,4 @@ container.registerSingleton<IWebhookClient>(
   DiscordWebhookClient,
 );
 
-container.registerSingleton<IMessageEmbed>('MessageEmbed', DiscordMessageEmbed);
+container.register<IMessageEmbed>('MessageEmbed', DiscordMessageEmbed);

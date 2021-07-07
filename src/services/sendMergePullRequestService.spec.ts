@@ -3,7 +3,8 @@ import { FakeWebhookClient } from '../providers/WebhookClient/fakes/FakeWebhookC
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
-import { SendMergePullRequestService } from './sendMergePullRequestService';
+import { SendMergePullRequestService } from './SendMergePullRequestService';
+
 import { PullRequestMerge, Resource } from '../types/Azure/IPullRequestMerge';
 
 let fakeWebhookClient: IWebhookClient;
