@@ -3,7 +3,7 @@ import { FakeWebhookClient } from '../providers/WebhookClient/fakes/FakeWebhookC
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
-import { SendCommentPullRequestService } from './sendCommentPullRequestService';
+import { SendCommentPullRequestService } from './SendCommentPullRequestService';
 import {
   PullRequestCommentedOn,
   Resource,

@@ -3,7 +3,7 @@ import { FakeWebhookClient } from '../providers/WebhookClient/fakes/FakeWebhookC
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 
-import { SendCreatePullRequestService } from './sendCreatePullRequestService';
+import { SendCreatePullRequestService } from './SendCreatePullRequestService';
 import { Resource } from '../types/Azure/IPullRequestCreated';
 
 let fakeWebhookClient: IWebhookClient;

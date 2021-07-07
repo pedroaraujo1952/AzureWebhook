@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { SendCreatePullRequestService } from '../services/sendCreatePullRequestService';
-import { SendCommentPullRequestService } from '../services/sendCommentPullRequestService';
-import { SendMergePullRequestService } from '../services/sendMergePullRequestService';
+import { SendCreatePullRequestService } from '../services/SendCreatePullRequestService';
+import { SendCommentPullRequestService } from '../services/SendCommentPullRequestService';
+import { SendMergePullRequestService } from '../services/SendMergePullRequestService';
 
 import { PullRequestCommentedOn } from '../types/Azure/IPullRequestCommentedOn';
 import { PullRequestCreated } from '../types/Azure/IPullRequestCreated';

@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import dotenv from 'dotenv';
 
 import express from 'express';
 import { logger } from './config/logger';
@@ -6,6 +7,8 @@ import { logger } from './config/logger';
 import { router } from './routes';
 
 import './containers';
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3333;
 
