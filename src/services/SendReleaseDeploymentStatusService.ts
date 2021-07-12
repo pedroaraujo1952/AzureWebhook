@@ -48,20 +48,26 @@ export class SendReleaseDeploymentStatusService {
 
     const embed = this.messageEmbed
       .setDescription(message.markdown)
-      .setColor(status === 'succeeded' ? 1879160 : 16711680)
-      .addField('Deployment URL', url);
+      .setColor(status === 'succeeded' ? 1879160 : 16711680);
+
+    if (environment.release.name === process.env.ENVIRONMENT_RELEASE_NAME) {
+      embed.addField('Deployment URL', url);
+    }
 
     this.webhookClient.send([embed]);
   }
 
   private async getURL(environment: Environment): Promise<string> {
-    if (environment.name === 'Dev') {
+    if (
+      environment.name.toLowerCase() ===
+      process.env.ENVIRONMENT_NAME?.toLowerCase()
+    ) {
       const {
         data: { deployments },
       } = await axios.get(`${process.env.DEPLOY_PLATFORM_URL}?target=preview`);
 
       const { url }: IDeployPayload = deployments.find(
-        (deploy: IDeployPayload) => deploy.name === 'plataforma-solution',
+        (deploy: IDeployPayload) => deploy.name === process.env.DEPLOY_NAME,
       );
 
       if (!url.includes('http')) {
