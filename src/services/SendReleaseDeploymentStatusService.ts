@@ -50,7 +50,10 @@ export class SendReleaseDeploymentStatusService {
       .setDescription(message.markdown)
       .setColor(status === 'succeeded' ? 1879160 : 16711680);
 
-    if (environment.release.name === process.env.ENVIRONMENT_RELEASE_NAME) {
+    if (
+      environment.releaseDefinition.name ===
+      process.env.ENVIRONMENT_RELEASE_NAME
+    ) {
       embed.addField('Deployment URL', url);
     }
 
