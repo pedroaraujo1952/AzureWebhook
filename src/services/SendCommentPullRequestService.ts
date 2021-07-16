@@ -5,6 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 import { Message, Resource } from '../types/Azure/IPullRequestCommentedOn';
+import { DEFAULT_COLOR } from '../utils/EmbedStatusColors';
 
 interface IRequest {
   message: Message;
@@ -33,7 +34,7 @@ export class SendCommentPullRequestService {
       .setURL(_links.self.href)
       .setDescription(message.markdown)
       .addField('Comentário: ', content)
-      .setColor(0x3d9df2);
+      .setColor(DEFAULT_COLOR);
 
     this.webhookClient.send([embed]);
   }

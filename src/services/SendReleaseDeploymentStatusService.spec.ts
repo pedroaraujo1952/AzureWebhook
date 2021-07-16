@@ -32,10 +32,13 @@ describe('SendReleaseDeploymentStatusService', () => {
       environment: {
         name: 'some-env-name',
         status: 'succeeded',
+        releaseDefinition: {
+          name: process.env.ENVIRONMENT_RELEASE_NAME,
+        },
       },
     } as Resource;
 
-    const setDescriptionSpy = jest.spyOn(fakeMessageEmbed, 'setDescription');
+    const setTitleSpy = jest.spyOn(fakeMessageEmbed, 'setTitle');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
 
     const getURL = jest
@@ -45,7 +48,7 @@ describe('SendReleaseDeploymentStatusService', () => {
 
     await sendReleaseBuildStatus.execute({ message, resource });
 
-    expect(setDescriptionSpy).toHaveBeenCalledWith(message.markdown);
+    expect(setTitleSpy).toHaveBeenCalled();
     expect(webhookSend).toHaveBeenCalled();
     expect(getURL).toHaveBeenCalled();
   });
@@ -59,10 +62,13 @@ describe('SendReleaseDeploymentStatusService', () => {
       environment: {
         name: 'some-env-name',
         status: 'failed',
+        releaseDefinition: {
+          name: process.env.ENVIRONMENT_RELEASE_NAME,
+        },
       },
     } as Resource;
 
-    const setDescriptionSpy = jest.spyOn(fakeMessageEmbed, 'setDescription');
+    const setTitleSpy = jest.spyOn(fakeMessageEmbed, 'setTitle');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
 
     const getURL = jest
@@ -72,7 +78,7 @@ describe('SendReleaseDeploymentStatusService', () => {
 
     await sendReleaseBuildStatus.execute({ message, resource });
 
-    expect(setDescriptionSpy).toHaveBeenCalledWith(message.markdown);
+    expect(setTitleSpy).toHaveBeenCalled();
     expect(webhookSend).toHaveBeenCalled();
     expect(getURL).toHaveBeenCalled();
   });

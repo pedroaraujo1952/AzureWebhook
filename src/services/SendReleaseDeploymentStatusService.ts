@@ -10,6 +10,7 @@ import {
   Message,
   Resource,
 } from '../types/Azure/IReleaseDeploymentComplete';
+import { STATUS_FAILED, STATUS_SUCCEEDED } from '../utils/EmbedStatusColors';
 
 interface IRequest {
   message: Message;
@@ -42,17 +43,20 @@ export class SendReleaseDeploymentStatusService {
 
   public async execute({ message, resource }: IRequest): Promise<void> {
     const { environment } = resource;
-    const { status } = environment;
+    const { status, releaseDefinition } = environment;
+
+    const { name: releaseName } = releaseDefinition;
 
     const url = await this.getURL(environment);
 
     const embed = this.messageEmbed
+      .setTitle(releaseName)
       .setDescription(message.markdown)
-      .setColor(status === 'succeeded' ? 1879160 : 16711680);
+      .setColor(status === 'succeeded' ? STATUS_SUCCEEDED : STATUS_FAILED);
 
     if (
-      environment.releaseDefinition.name ===
-      process.env.ENVIRONMENT_RELEASE_NAME
+      releaseName === process.env.ENVIRONMENT_RELEASE_NAME &&
+      status === 'succeeded'
     ) {
       embed.addField('Deployment URL', url);
     }
@@ -60,14 +64,13 @@ export class SendReleaseDeploymentStatusService {
     this.webhookClient.send([embed]);
   }
 
-  private async getURL(environment: Environment): Promise<string> {
-    if (
-      environment.name.toLowerCase() ===
-      process.env.ENVIRONMENT_NAME?.toLowerCase()
-    ) {
+  private async getURL({ name }: Environment): Promise<string> {
+    if (name.toLowerCase() === process.env.ENVIRONMENT_NAME?.toLowerCase()) {
+      const axiosURL = `${process.env.DEPLOY_PLATFORM_URL}?target=preview`;
+
       const {
         data: { deployments },
-      } = await axios.get(`${process.env.DEPLOY_PLATFORM_URL}?target=preview`);
+      } = await axios.get(axiosURL);
 
       const { url }: IDeployPayload = deployments.find(
         (deploy: IDeployPayload) => deploy.name === process.env.DEPLOY_NAME,

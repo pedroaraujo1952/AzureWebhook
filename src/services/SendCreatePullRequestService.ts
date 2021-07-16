@@ -5,6 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { Resource } from '../types/Azure/IPullRequestCreated';
+import { DEFAULT_COLOR } from '../utils/EmbedStatusColors';
 
 @injectable()
 export class SendCreatePullRequestService {
@@ -33,7 +34,7 @@ export class SendCreatePullRequestService {
         'Reviewers',
         reviewers.map(content => content.displayName),
       )
-      .setColor(0x3d9df2);
+      .setColor(DEFAULT_COLOR);
 
     this.webhookClient.send([embed]);
   }

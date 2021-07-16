@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe';
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 import { Message, Resource } from '../types/Azure/IBuildCompleted';
+import { STATUS_FAILED, STATUS_SUCCEEDED } from '../utils/EmbedStatusColors';
 
 interface IRequest {
   message: Message;
@@ -21,9 +22,12 @@ export class SendBuildStatusService {
   ) {}
 
   public async execute({ message, resource }: IRequest): Promise<void> {
+    const { status } = resource;
+    const { markdown } = message;
+
     const embed = this.messageEmbed
-      .setDescription(message.markdown)
-      .setColor(resource.status === 'succeeded' ? 1879160 : 16711680);
+      .setDescription(markdown)
+      .setColor(status === 'succeeded' ? STATUS_SUCCEEDED : STATUS_FAILED);
 
     this.webhookClient.send([embed]);
   }

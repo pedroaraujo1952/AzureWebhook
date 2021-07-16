@@ -5,6 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { IWebhookClient } from '../providers/WebhookClient/models/IWebhookClient';
 import { IMessageEmbed } from '../providers/MessageEmbed/models/IMessageEmbed';
 import { Message, Resource } from '../types/Azure/IPullRequestMerge';
+import { STATUS_FAILED, STATUS_SUCCEEDED } from '../utils/EmbedStatusColors';
 
 interface IRequest {
   message: Message;
@@ -28,7 +29,7 @@ export class SendMergePullRequestService {
       .setTitle('New Merge Attempt')
       .setDescription(message.markdown)
       .addField('Pull Request', title)
-      .setColor(mergeStatus === 'succeeded' ? 1879160 : 16711680);
+      .setColor(mergeStatus === 'succeeded' ? STATUS_SUCCEEDED : STATUS_FAILED);
 
     this.webhookClient.send([embed]);
   }
