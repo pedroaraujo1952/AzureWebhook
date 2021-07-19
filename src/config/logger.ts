@@ -1,7 +1,7 @@
 import { createLogger, transports, format } from 'winston';
-import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+export const logsPath = path.resolve(__dirname, '..', '..', 'logs');
 
 const customLevel = {
   '[ERROR]': 0,

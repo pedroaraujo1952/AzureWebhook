@@ -29,6 +29,6 @@ export class SendBuildStatusService {
       .setDescription(markdown)
       .setColor(status === 'succeeded' ? STATUS_SUCCEEDED : STATUS_FAILED);
 
-    this.webhookClient.send([embed]);
+    await this.webhookClient.send([embed]);
   }
 }
