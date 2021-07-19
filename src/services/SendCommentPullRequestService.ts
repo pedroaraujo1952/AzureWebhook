@@ -36,6 +36,6 @@ export class SendCommentPullRequestService {
       .addField('Comentário: ', content)
       .setColor(DEFAULT_COLOR);
 
-    this.webhookClient.send([embed]);
+    await this.webhookClient.send([embed]);
   }
 }

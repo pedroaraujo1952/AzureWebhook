@@ -61,7 +61,7 @@ export class SendReleaseDeploymentStatusService {
       embed.addField('Deployment URL', url);
     }
 
-    this.webhookClient.send([embed]);
+    await this.webhookClient.send([embed]);
   }
 
   private async getURL({ name }: Environment): Promise<string> {

@@ -36,6 +36,6 @@ export class SendCreatePullRequestService {
       )
       .setColor(DEFAULT_COLOR);
 
-    this.webhookClient.send([embed]);
+    await this.webhookClient.send([embed]);
   }
 }
