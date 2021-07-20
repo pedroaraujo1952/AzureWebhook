@@ -1,8 +1,7 @@
 # AzureWebhook
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-[![GitHub](https://img.shields.io/github/license/Ph-FMM/AzureWebhook)](LICENSE) ![GitHub](https://img.shields.io/github/workflow/status/Ph-FMM/AzureWebhook/Unit%20Tests)
+[![GitHub](https://img.shields.io/github/license/Ph-FMM/AzureWebhook)](LICENSE) 
+![GitHub](https://img.shields.io/github/workflow/status/Ph-FMM/AzureWebhook/Unit%20Tests)
 
 AzureWebhook is an already built webhook integration between Discord and Azure Devops Pipelines. Using this you will receive real-time status reports from Azure Devops in your Discord server.
 
@@ -15,9 +14,7 @@ It has some bonus integration with VercelAPI for preview URLs fetching.
 
 For more details see the [wiki](https://github.com/Ph-FMM/AzureWebhook/wiki) of this project.
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -32,5 +29,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
