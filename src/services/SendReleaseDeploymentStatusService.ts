@@ -47,8 +47,6 @@ export class SendReleaseDeploymentStatusService {
 
     const { name: releaseName } = releaseDefinition;
 
-    const url = await this.getURL(environment);
-
     const embed = this.messageEmbed
       .setTitle(releaseName)
       .setDescription(message.markdown)
@@ -58,6 +56,7 @@ export class SendReleaseDeploymentStatusService {
       releaseName === process.env.ENVIRONMENT_RELEASE_NAME &&
       status === 'succeeded'
     ) {
+      const url = await this.getURL(environment);
       embed.addField('Deployment URL', url);
     }
 
@@ -71,6 +70,9 @@ export class SendReleaseDeploymentStatusService {
       const {
         data: { deployments },
       } = await axios.get(axiosURL);
+
+      if (!deployments)
+        throw new Error('Vercel API does not returned any value');
 
       const { url }: IDeployPayload = deployments.find(
         (deploy: IDeployPayload) => deploy.name === process.env.DEPLOY_NAME,
