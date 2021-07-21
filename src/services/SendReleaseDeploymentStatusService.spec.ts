@@ -30,7 +30,7 @@ describe('SendReleaseDeploymentStatusService', () => {
 
     const resource = {
       environment: {
-        name: 'some-env-name',
+        name: process.env.ENVIRONMENT_NAME,
         status: 'succeeded',
         releaseDefinition: {
           name: process.env.ENVIRONMENT_RELEASE_NAME,
@@ -60,7 +60,7 @@ describe('SendReleaseDeploymentStatusService', () => {
 
     const resource = {
       environment: {
-        name: 'some-env-name',
+        name: process.env.ENVIRONMENT_NAME,
         status: 'failed',
         releaseDefinition: {
           name: process.env.ENVIRONMENT_RELEASE_NAME,
@@ -71,15 +71,9 @@ describe('SendReleaseDeploymentStatusService', () => {
     const setTitleSpy = jest.spyOn(fakeMessageEmbed, 'setTitle');
     const webhookSend = jest.spyOn(fakeWebhookClient, 'send');
 
-    const getURL = jest
-      // @ts-expect-error Jest use case
-      .spyOn<any>(sendReleaseBuildStatus, 'getURL')
-      .mockImplementationOnce(() => 'some-url');
-
     await sendReleaseBuildStatus.execute({ message, resource });
 
     expect(setTitleSpy).toHaveBeenCalled();
     expect(webhookSend).toHaveBeenCalled();
-    expect(getURL).toHaveBeenCalled();
   });
 });
