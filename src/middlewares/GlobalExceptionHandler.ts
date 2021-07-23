@@ -17,7 +17,9 @@ export function globalExceptionHandler(
     const messageEmbed = new DiscordMessageEmbed();
     const embed = messageEmbed
       .setTitle('An error ocurred')
-      .setDescription('Search in logs for more description')
+      .setDescription(
+        `See logs for further information\n${process.env.HOST_PRODUCTION_URL}/logs/error.log`,
+      )
       .setColor(STATUS_FAILED);
 
     const webhookClient = new DiscordWebhookClient();

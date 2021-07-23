@@ -65,13 +65,13 @@ export class SendReleaseDeploymentStatusService {
 
   private async getURL({ name }: Environment): Promise<string> {
     if (name.toLowerCase() === process.env.ENVIRONMENT_NAME?.toLowerCase()) {
-      const axiosURL = `${process.env.DEPLOY_PLATFORM_URL}?target=preview`;
+      const axiosURL = `${process.env.DEPLOY_PLATFORM_URL}`;
 
       const {
         data: { deployments },
       } = await axios.get(axiosURL);
 
-      if (!deployments)
+      if (!deployments || deployments.length <= 0)
         throw new Error('Vercel API does not returned any value');
 
       const { url }: IDeployPayload = deployments.find(
