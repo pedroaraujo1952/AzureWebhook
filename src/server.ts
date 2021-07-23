@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import 'express-async-errors';
-import dotenv from 'dotenv';
 
+import dotenv from 'dotenv';
 import express from 'express';
+
 import { logger, logsPath } from './config/logger';
 
 import { router } from './routes';
