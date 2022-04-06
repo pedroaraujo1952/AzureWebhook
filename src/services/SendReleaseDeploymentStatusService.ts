@@ -64,7 +64,10 @@ export class SendReleaseDeploymentStatusService {
   }
 
   private async getURL({ name }: Environment): Promise<string> {
-    if (name.toLowerCase() === process.env.ENVIRONMENT_NAME?.toLowerCase()) {
+    if (
+      name.toLowerCase() !==
+      process.env.PRODUCTION_ENVIRONMENT_NAME?.toLowerCase()
+    ) {
       const axiosURL = `${process.env.DEPLOY_PLATFORM_URL}`;
 
       const {
